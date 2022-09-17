@@ -1,0 +1,19 @@
+input {
+    padding: 10px 20px;
+    border: 4px solid white;
+    margin: 0 1.5rem;
+    color: black;
+    width: 70%;
+    background-color: transparent
+}
+
+input:focus-within {
+    border: 4px solid #395399;
+    font-size: 14px;
+}
+
+.error {
+    padding-left: 25px;
+    font-size: small;
+    color: red;
+}
