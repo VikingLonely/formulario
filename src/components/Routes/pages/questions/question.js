@@ -7,9 +7,9 @@ async function getQuestions(id) {
     return data;
 }
 
-const question = () => {
+const Question = () => {
     const [questions, setQuestions] = useState({});
-    const [alternativa, setAlternativa] = useState([{}]);
+    const [alternativa, setAlternativa] = useState({});
     const [redirect, setRedirect] = useState(false);
     let { id } = useParams();
     let history = useNavigate();
@@ -17,26 +17,38 @@ const question = () => {
     useEffect(() => {
         getQuestions(id).then(data => {
             setQuestions(data['data']);
-            setAlternativa(data['alteranativas']);
+            setAlternativa(data['alternativas']);
         }, error => {
             setRedirect(true);
         })
     }, [id]);
 
+    const pagMain = () => {
+        if (history === '/') {
+            return true
+        }
+        return false
+    }
+
     if (redirect)
         return <Navigate to={'/'}></Navigate>
     return (
         <Fragment>
-            <div className="container">
+            <div className="container" >
                 <div className="question">
                     <h1>{questions.titulo}</h1>
                     <p>{questions.pergunta}</p>
                 </div>
                 <br></br>
                 <div className="options">
-                    {alternativa.map((n, index) =>
-                        <input type={'radio'} name="option" key={index}>{n.alteranativas}</input>
-                    )}
+                    <input type={'radio'} name="option" ></input>{alternativa.alt1}
+                    <input type={'radio'} name="option" ></input>{alternativa.alt2}
+                    <input type={'radio'} name="option" ></input>{alternativa.alt3}
+                    <input type={'radio'} name="option" ></input>{alternativa.alt4}
+                    <input type={'radio'} name="option"></input>{alternativa.alt5}
+                </div>
+                <div className="buttons">
+
                 </div>
 
             </div>
@@ -44,4 +56,4 @@ const question = () => {
     )
 }
 
-export default question;
+export default Question;

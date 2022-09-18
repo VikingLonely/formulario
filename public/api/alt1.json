@@ -1,18 +1,10 @@
 {
-    "alternativas": [{
-            "alternativa": "Elit excepteur dolor do anim amet nostrud quis."
-        },
-        {
-            "alternativa": "Elit excepteur dolor do anim amet nostrud quis."
-        },
-        {
-            "alternativa": "Elit excepteur dolor do anim amet nostrud quis."
-        },
-        {
-            "alternativa": "Elit excepteur dolor do anim amet nostrud quis."
-        },
-        {
-            "alternativa": "Elit excepteur dolor do anim amet nostrud quis."
-        }
-    ]
+    "alternativas": {
+        "alt1": "Elit excepteur dolor do anim amet nostrud quis.",
+        "alt2": "Elit excepteur dolor do anim amet nostrud quis.",
+        "alt3": "Elit excepteur dolor do anim amet nostrud quis.",
+        "alt4": "Elit excepteur dolor do anim amet nostrud quis.",
+        "alt5": "Elit excepteur dolor do anim amet nostrud quis."
+    }
+
 }

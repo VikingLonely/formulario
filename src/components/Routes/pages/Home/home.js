@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Form } from "@unform/web";
 import Input from "../../../Form/input";
 import * as Yup from 'yup';
@@ -7,9 +7,11 @@ import './home.css';
 
 
 
-const Home = () => {
+const Home = (props) => {
+    const [login, setLogin] = useState();
     const formRef = useRef(null)
     const navigate = useNavigate();
+
     async function handleSubmit(data, { reset }) {
         try {
             const schema = Yup.object().shape({
@@ -20,6 +22,7 @@ const Home = () => {
             await schema.validate(data, {
                 abortEarly: false,
             })
+            pagMain()
             formRef.current.setErrors({})
             navigate('/question/question1')
             console.log(data)
@@ -34,6 +37,10 @@ const Home = () => {
             }
         }
     }
+
+    const pagMain = (e) => setLogin({
+        login, e: 1
+    })
 
     return (
 
