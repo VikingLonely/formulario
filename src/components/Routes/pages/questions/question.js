@@ -1,57 +1,83 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
-
-async function getQuestions(id) {
-    let response = await fetch(`http://localhost:3000/api/${id}.json`);
-    let data = await response.json();
-    return data;
-}
+import { useParams, Navigate, useNavigate } from "react-router-dom";
+import Buttons from "../../../Buttons/buttons";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import './question.css'
 
 const Question = () => {
-    const [questions, setQuestions] = useState({});
-    const [alternativa, setAlternativa] = useState({});
+    const [questions, setQuestions] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [value, setValue] = useState();
     let { id } = useParams();
-    let history = useNavigate();
-
+    const navigate = useNavigate();
     useEffect(() => {
-        getQuestions(id).then(data => {
-            setQuestions(data['data']);
-            setAlternativa(data['alternativas']);
-        }, error => {
-            setRedirect(true);
-        })
-    }, [id]);
+        try {
+            fetch(`http://localhost:3000/api/questions.json`).then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+            }).then(data => {
+                const res = data.find(pergunta => pergunta.id === Number(id))
+                if (!res) {
+                    navigate('/question/1')
+                }
+                setQuestions(res)
+            });
 
-    const pagMain = () => {
-        if (history === '/') {
-            return true
+        } catch (e) {
+            console.log(e.message)
         }
-        return false
+
+    }, [id]);
+    const handleChange = (e) => {
+        document.
+            setValue(e.target.value);
     }
 
     if (redirect)
         return <Navigate to={'/'}></Navigate>
-    return (
-        <Fragment>
-            <div className="container" >
-                <div className="question">
-                    <h1>{questions.titulo}</h1>
-                    <p>{questions.pergunta}</p>
-                </div>
-                <br></br>
-                <div className="options">
-                    <input type={'radio'} name="option" ></input>{alternativa.alt1}
-                    <input type={'radio'} name="option" ></input>{alternativa.alt2}
-                    <input type={'radio'} name="option" ></input>{alternativa.alt3}
-                    <input type={'radio'} name="option" ></input>{alternativa.alt4}
-                    <input type={'radio'} name="option"></input>{alternativa.alt5}
-                </div>
-                <div className="buttons">
 
+    if (!questions) return <h3>Carregando</h3>
+
+    else return (
+        <Fragment className='form-question'>
+            <div className="container" >
+                <h1>{questions.titulo}</h1>
+
+                <br></br>
+                <div className="question">
+                    <p>
+                        {questions.pergunta}
+                    </p>
+                </div>
+                <div className="options">
+                    <FormControl >
+                        <RadioGroup
+                            value={value}
+                            onClick={handleChange}>
+                            {questions.alternativas.map((alternativa, id) => (
+                                < FormControlLabel value={questions.titulo + id} control={< Radio sx={{
+                                    '& .MuiSvgIcon-root': {
+                                        fontSize: 20,
+                                    },
+                                }}
+                                />} key={id} label={alternativa} className="radio" />
+                            ))}
+                        </RadioGroup>
+                    </FormControl>
+
+                </div>
+
+                <div className="buttons">
+                    <br></br>
+                    <Buttons page={Number(id)} dica={questions.dica} />
                 </div>
 
             </div>
+
         </Fragment >
     )
 }
