@@ -8,12 +8,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 
-export default function Dica(props) {
+export default function AlertButton(props) {
     const [open, setOpen] = React.useState(false);
 
 
     const handleClickOpen = () => {
         setOpen(true);
+        if (props.id === 1) {
+            props.contDica(1)
+        }
+        if (props.id === 2) {
+            props.contFrustado(1)
+        }
     };
 
     const handleClose = () => {
@@ -23,7 +29,7 @@ export default function Dica(props) {
     return (
         <div>
             <Button className='Button' variant='contained' onClick={handleClickOpen} disableElevation>
-                Dica
+                {props.value}
             </Button>
             <Dialog
                 open={open}
@@ -32,17 +38,18 @@ export default function Dica(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Dica"}
+                    {props.title}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {props.dica}
+                        {props.mensage}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>Close</Button>
 
                 </DialogActions>
+
             </Dialog>
         </div>
     );

@@ -3,6 +3,7 @@ import { Form } from "@unform/web";
 import Input from "../../../Form/input";
 import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom";
+
 import './home.css';
 
 //supabase
@@ -10,6 +11,7 @@ import './home.css';
 const Home = () => {
     const formRef = useRef(null)
     const navigate = useNavigate();
+
 
     async function handleSubmit(data, { reset }) {
         // try {
@@ -22,6 +24,7 @@ const Home = () => {
         //         abortEarly: false,
         //     })
         //     formRef.current.setErrors({})
+
         //     navigate('/question/1')
         //     reset();
         // } catch (err) {
@@ -32,21 +35,22 @@ const Home = () => {
         //         })
         //         formRef.current.setErrors(errorMessages)
         //     }
-        // }`
+        // }
         navigate('/question/1')
+
     }
 
 
     return (
 
         <div className="home">
-            <Form className="form" ref={formRef} onSubmit={handleSubmit}>
+            <Form className="form" ref={formRef} onSubmit={handleSubmit} >
                 <h2>Cadastro</h2>
                 <label className="label-home" name='name'>Nome:</label>
-                <Input className='input' name="name"></Input>
+                <Input className='input' name="name" ></Input>
                 <label className="label-home" name='Email'>Email:</label>
                 <Input className='input' name='email' type='email'></Input>
-                <button className="main-but" type='submit'>Iniciar</button>
+                <button className="main-but" type='submit'>Iniciar  </button>
             </Form>
         </div>
 
