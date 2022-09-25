@@ -14,28 +14,28 @@ const Home = () => {
 
 
     async function handleSubmit(data, { reset }) {
-        // try {
-        //     const schema = Yup.object().shape({
-        //         name: Yup.string().required('Nome é obrigatorio'),
-        //         email: Yup.string()
-        //             .email('Digite um email valido').required('O email é obrigatorio')
-        //     })
-        //     await schema.validate(data, {
-        //         abortEarly: false,
-        //     })
-        //     formRef.current.setErrors({})
+        try {
+            const schema = Yup.object().shape({
+                name: Yup.string().required('Nome é obrigatorio'),
+                email: Yup.string()
+                    .email('Digite um email valido').required('O email é obrigatorio')
+            })
+            await schema.validate(data, {
+                abortEarly: false,
+            })
+            formRef.current.setErrors({})
 
-        //     navigate('/question/1')
-        //     reset();
-        // } catch (err) {
-        //     if (err instanceof Yup.ValidationError) {
-        //         const errorMessages = {}
-        //         err.inner.forEach(error => {
-        //             errorMessages[error.path] = error.message;
-        //         })
-        //         formRef.current.setErrors(errorMessages)
-        //     }
-        // }
+            navigate('/question/1')
+            reset();
+        } catch (err) {
+            if (err instanceof Yup.ValidationError) {
+                const errorMessages = {}
+                err.inner.forEach(error => {
+                    errorMessages[error.path] = error.message;
+                })
+                formRef.current.setErrors(errorMessages)
+            }
+        }
         navigate('/question/1')
 
     }
